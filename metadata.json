@@ -1,0 +1,5 @@
+{
+  "name": "OceanMind+",
+  "description": "AI decision platform for marine ecosystems linking behavior, risk, and policy.",
+  "requestFramePermissions": ["geolocation"]
+}

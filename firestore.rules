@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.email == "prajwalmrprajwal62@gmail.com" && request.auth.token.email_verified == true ||
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+    }
+
+    // User Rules
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin();
+    }
+
+    // Waste Log Rules
+    match /wasteLogs/{logId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+
+    // Report Rules
+    match /reports/{reportId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
+    // Region Status Rules
+    match /regionStatus/{regionId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Fishing Trip Rules
+    match /fishing_trips/{tripId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+
+    // Pollution Report Rules
+    match /pollutionReports/{reportId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
+    // Resource Analysis Rules
+    match /resourceAnalyses/{analysisId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+
+    // Blockchain Log Rules
+    match /blockchainLogs/{logId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+  }
+}

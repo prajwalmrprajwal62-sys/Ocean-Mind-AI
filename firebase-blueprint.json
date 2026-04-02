@@ -1,0 +1,175 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "App users including citizens, fishers, and admins.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["citizen", "fisher", "admin", "corporate"] },
+        "homeRegion": { "type": "string" },
+        "points": { "type": "number" },
+        "streakCount": { "type": "number" },
+        "lastActiveDate": { "type": "string", "format": "date-time" },
+        "personalImpactScore": { "type": "number" },
+        "totalCatchKg": { "type": "number" },
+        "totalEarnings": { "type": "number" },
+        "sustainabilityScore": { "type": "number" },
+        "certificationLevel": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "fishingTrips": {
+      "title": "Fishing Trip",
+      "description": "Logs of fishing activity for resource management.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "hoursFished": { "type": "number" },
+        "gearType": { "type": "string" },
+        "zoneId": { "type": "string" },
+        "catchKg": { "type": "number" },
+        "species": { "type": "array", "items": { "type": "string" } },
+        "earnings": { "type": "number" },
+        "cpue": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["userId", "date", "hoursFished", "catchKg", "zoneId"]
+    },
+    "wasteLogs": {
+      "title": "Waste Log",
+      "description": "Daily or weekly waste behavior entries.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "plasticCount": { "type": "number" },
+        "organicCount": { "type": "number" },
+        "recycledCount": { "type": "number" },
+        "eWasteCount": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "required": ["userId", "date"]
+    },
+    "reports": {
+      "title": "Marine Report",
+      "description": "Reports for pollution, biodiversity, or resource overuse.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["pollution", "biodiversity", "resource"] },
+        "category": { "type": "string" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" },
+            "regionLabel": { "type": "string" }
+          }
+        },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "severity": { "type": "string", "enum": ["low", "medium", "high"] },
+        "status": { "type": "string", "enum": ["new", "in_review", "resolved"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "category", "location", "createdAt"]
+    },
+    "regionStatus": {
+      "title": "Region Status",
+      "description": "Aggregated health scores for coastal regions.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "pollutionIndex": { "type": "number" },
+        "biodiversityRisk": { "type": "number" },
+        "resourcePressure": { "type": "number" },
+        "coastalHealthScore": { "type": "number" },
+        "lastUpdated": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name"]
+    },
+    "pollutionReports": {
+      "title": "Pollution Report",
+      "description": "Specific reports for water pollution with coordinates.",
+      "type": "object",
+      "properties": {
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "userId": { "type": "string" },
+        "intensity": { "type": "number" }
+      },
+      "required": ["latitude", "longitude", "description", "createdAt"]
+    },
+    "resourceAnalyses": {
+      "title": "Resource Analysis",
+      "description": "Logs of resource optimization decisions.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "population": { "type": "number" },
+        "catch": { "type": "number" },
+        "safeLimit": { "type": "number" },
+        "status": { "type": "string" },
+        "recommendation": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "population", "catch", "safeLimit", "status", "createdAt"]
+    },
+    "blockchainLogs": {
+      "title": "Blockchain Log",
+      "description": "Immutable logs of ESG actions anchored to the blockchain.",
+      "type": "object",
+      "properties": {
+        "txHash": { "type": "string" },
+        "userId": { "type": "string" },
+        "action": { "type": "string" },
+        "type": { "type": "string", "enum": ["verification", "minting", "strategy"] },
+        "status": { "type": "string" },
+        "impactValue": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["txHash", "userId", "action", "type", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "users",
+      "description": "User profiles."
+    },
+    "/wasteLogs/{logId}": {
+      "schema": "wasteLogs",
+      "description": "User waste behavior logs."
+    },
+    "/reports/{reportId}": {
+      "schema": "reports",
+      "description": "Marine incident reports."
+    },
+    "/regionStatus/{regionId}": {
+      "schema": "regionStatus",
+      "description": "Regional health scores."
+    },
+    "/fishing_trips/{tripId}": {
+      "schema": "fishingTrips",
+      "description": "Fishing trip logs."
+    },
+    "/pollutionReports/{reportId}": {
+      "schema": "pollutionReports",
+      "description": "Pollution reports with geolocation."
+    },
+    "/resourceAnalyses/{analysisId}": {
+      "schema": "resourceAnalyses",
+      "description": "Resource optimization logs."
+    },
+    "/blockchainLogs/{logId}": {
+      "schema": "blockchainLogs",
+      "description": "Immutable ESG impact logs."
+    }
+  }
+}
