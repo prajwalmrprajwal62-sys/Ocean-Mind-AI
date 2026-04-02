@@ -10,8 +10,8 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center px-4 md:px-24 overflow-hidden grid-pattern">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#D1FF4D]/5 to-transparent pointer-events-none" />
-        
-        <div className="relative z-10 max-w-4xl">
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
           <motion.div
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -34,12 +34,81 @@ export default function LandingPage() {
                 <Button variant="outline" className="text-lg px-10 py-4">Live Risk Map</Button>
               </Link>
             </div>
-          </motion.div>
-        </div>
 
-        {/* Decorative Hexagon Background */}
-        <div className="absolute right-[-10%] top-[20%] opacity-10 hidden lg:block">
-          <Hexagon size={600} className="text-[#D1FF4D] animate-pulse" strokeWidth={0.5} />
+            <div className="mt-10 max-w-2xl rounded-3xl border border-[#1A1A1A] bg-[#0A0A0A]/70 p-5 backdrop-blur-sm">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#D1FF4D] shadow-[0_0_12px_rgba(209,255,77,0.8)]" />
+                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#D1FF4D]">Firebase sign-in notice</p>
+              </div>
+              <p className="text-sm text-gray-400 leading-relaxed">
+                If a user sees a login error, their domain must be added in Firebase Authentication Authorized domains. The app now shows the exact sign-in failure so it is easier to diagnose.
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="relative hidden lg:block min-h-[620px]">
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="absolute inset-y-8 right-0 left-10 rounded-[2rem] border border-[#1A1A1A] bg-[#050505]/80 backdrop-blur-md overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.45)]"
+            >
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(209,255,77,0.18),transparent_28%),radial-gradient(circle_at_80%_30%,rgba(56,189,248,0.12),transparent_26%),radial-gradient(circle_at_60%_75%,rgba(209,255,77,0.08),transparent_28%)]" />
+              <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:36px_36px]" />
+
+              <div className="relative p-8 h-full flex flex-col justify-between">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Live Ocean Surface</p>
+                    <h3 className="text-2xl font-black uppercase tracking-tighter mt-2">Signal Overview</h3>
+                  </div>
+                  <Badge variant="accent">Online</Badge>
+                </div>
+
+                <div className="relative flex-1 my-10 flex items-center justify-center">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
+                    className="absolute w-[420px] h-[420px] rounded-full border border-[#D1FF4D]/10"
+                  />
+                  <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 36, repeat: Infinity, ease: 'linear' }}
+                    className="absolute w-[320px] h-[320px] rounded-full border border-[#D1FF4D]/20"
+                  />
+                  <div className="absolute w-[240px] h-[240px] rounded-full bg-[#D1FF4D]/10 blur-3xl" />
+
+                  <div className="relative w-[280px] h-[280px] rounded-full border border-[#D1FF4D]/20 bg-black/50 flex items-center justify-center">
+                    <div className="w-[210px] h-[210px] rounded-full border border-[#D1FF4D]/30 bg-[#0A0A0A] flex items-center justify-center shadow-[0_0_40px_rgba(209,255,77,0.08)]">
+                      <div className="text-center px-8">
+                        <Globe size={38} className="text-[#D1FF4D] mx-auto mb-4" />
+                        <p className="text-[10px] uppercase tracking-[0.35em] text-gray-500 font-black">Marine Health Index</p>
+                        <p className="text-6xl font-black text-white leading-none mt-3">92</p>
+                        <p className="text-xs text-[#D1FF4D] uppercase tracking-[0.25em] font-bold mt-2">Stable / Improving</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { label: 'Alerts', value: '08', tone: 'text-[#D1FF4D]' },
+                    { label: 'Reports', value: '142', tone: 'text-white' },
+                    { label: 'Coverage', value: '87%', tone: 'text-[#D1FF4D]' },
+                  ].map((stat) => (
+                    <div key={stat.label} className="rounded-2xl border border-[#1A1A1A] bg-black/60 p-4">
+                      <p className="text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black">{stat.label}</p>
+                      <p className={`text-3xl font-black mt-2 ${stat.tone}`}>{stat.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="absolute right-[4%] top-[12%] opacity-20">
+              <Hexagon size={520} className="text-[#D1FF4D]" strokeWidth={0.75} />
+            </div>
+          </div>
         </div>
       </section>
 
