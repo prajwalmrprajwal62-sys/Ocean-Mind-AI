@@ -34,16 +34,6 @@ export default function LandingPage() {
                 <Button variant="outline" className="text-lg px-10 py-4">Live Risk Map</Button>
               </Link>
             </div>
-
-            <div className="mt-10 max-w-2xl rounded-3xl border border-[#1A1A1A] bg-[#0A0A0A]/70 p-5 backdrop-blur-sm">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#D1FF4D] shadow-[0_0_12px_rgba(209,255,77,0.8)]" />
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#D1FF4D]">Firebase sign-in notice</p>
-              </div>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                If a user sees a login error, their domain must be added in Firebase Authentication Authorized domains. The app now shows the exact sign-in failure so it is easier to diagnose.
-              </p>
-            </div>
           </motion.div>
 
           <div className="relative hidden lg:block min-h-[620px]">
