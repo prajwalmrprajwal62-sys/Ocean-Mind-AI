@@ -1,20 +1,17 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+We built OceanMind+ 🌊 — not just another “idea project”, but something we actually tried to make work.
 
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/b5b415a9-80a5-4178-82d5-b54464dba968
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+🌍 1. AI-Powered Ocean Risk Map
+Interactive map with region-wise health, threats & trends
+👉 Feels like a real-world monitoring system, not just UI
+🐟 2. Fisher Dashboard with CPUE Tracking
+Tracks fishing effort vs catch (real metric)
+👉 This is rare + domain understanding (big plus)
+🏢 3. Blockchain-Based ESG Verification
+OceanChain ledger + verified impact records
+👉 Makes it feel serious + enterprise-level
+📊 4. Ocean Responsibility Score
+Converts user actions into measurable environmental impact
+👉 Shows behavior + data thinking, not just features
+📍 5. Region Intelligence System
+Pollution + biodiversity + resource insights with recommendations
+👉 Feels like policy-level decision tool
